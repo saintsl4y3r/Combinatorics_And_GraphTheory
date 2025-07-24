@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <climits>
+#include <tuple> 
 using namespace std;
 
 class GeneralGraph {
@@ -52,13 +53,15 @@ public:
 };
 
 int main() {
-    GeneralGraph g(5);
-    g.add_edge(0, 1, 4, 1);
-    g.add_edge(0, 1, 2, 2);
-    g.add_edge(0, 2, 8, 3);
-    g.add_edge(1, 3, 5, 4);
-    g.add_edge(1, 4, 9, 5);
-    g.add_edge(0, 0, 1, 6); // Self-loop
-    g.dijkstra(0);
+    GeneralGraph g(5); // 5 vertices (0 to 4)
+    g.add_edge(0, 0, 4, 1);   // 0 -> 0: self-loop with weight 4
+    g.add_edge(0, 1, 1, 2);   // 0 -> 1: weight 1
+    g.add_edge(1, 2, 2, 3);   // 1 -> 2: parallel edge, weight 2
+    g.add_edge(1, 2, 3, 4);   // 1 -> 2: parallel edge, weight 3
+    // No edge from 2 to 3
+    g.add_edge(3, 4, 1, 5);   // 3 -> 4: parallel edge, weight 1
+    g.add_edge(3, 4, 5, 6);   // 3 -> 4: parallel edge, weight 5
+    g.add_edge(3, 4, 7, 7);   // 3 -> 4: parallel edge, weight 7
+    g.dijkstra(1); // Source is 1, target is 3
     return 0;
 }
